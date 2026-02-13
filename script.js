@@ -1,31 +1,26 @@
-const gifStages = [
-    "https://media.tenor.com/EBV7OT7ACfwAAAAj/u-u-qua-qua-u-quaa.gif",    // 0 normal
-    "https://media1.tenor.com/m/uDugCXK4vI4AAAAd/chiikawa-hachiware.gif",  // 1 confused
-    "https://media.tenor.com/f_rkpJbH1s8AAAAj/somsom1012.gif",             // 2 pleading
-    "https://media.tenor.com/OGY9zdREsVAAAAAj/somsom1012.gif",             // 3 sad
-    "https://media1.tenor.com/m/WGfra-Y_Ke0AAAAd/chiikawa-sad.gif",       // 4 sadder
-    "https://media.tenor.com/CivArbX7NzQAAAAj/somsom1012.gif",             // 5 devastated
-    "https://media.tenor.com/5_tv1HquZlcAAAAj/chiikawa.gif",               // 6 very devastated
-    "https://media1.tenor.com/m/uDugCXK4vI4AAAAC/chiikawa-hachiware.gif"  // 7 crying runaway
-]
+/**
+ * Load theme data on page load
+ */
+const currentTheme = ThemeManager.getThemeData()
+const gifStages = currentTheme.gifStages
 
 const noMessages = [
     "No",
-    "Are you positive? 🤔",
-    "Pookie please... 🥺",
-    "If you say no, I will be really sad...",
-    "I will be very sad... 😢",
-    "Please??? 💔",
-    "Don't do this to me...",
-    "Last chance! 😭",
-    "You can't catch me anyway 😜"
+    "¿Estás segura? 🤔",
+    "Porfa mi amor... 🥺",
+    "Si dices que no, me voy a poner bien triste...",
+    "Me voy a poner súper triste... 😢",
+    "Por favoooor??? 💔",
+    "No me hagas esto...",
+    "¡Última oportunidad! 😭",
+    "De todas formas no me vas a alcanzar 😜"
 ]
 
 const yesTeasePokes = [
-    "try saying no first... I bet you want to know what happens 😏",
-    "go on, hit no... just once 👀",
-    "you're missing out 😈",
-    "click no, I dare you 😏"
+    "prueba diciendo que no primero... sé que quieres saber qué pasa 😏",
+    "dale, dale a no... solo una vez 👀",
+    "te lo estás perdiendo 😈",
+    "dale clic a no, te reto 😏"
 ]
 
 let yesTeasedCount = 0
@@ -38,6 +33,15 @@ const catGif = document.getElementById('cat-gif')
 const yesBtn = document.getElementById('yes-btn')
 const noBtn = document.getElementById('no-btn')
 const music = document.getElementById('bg-music')
+
+// Apply theme colors on load
+ThemeManager.applyThemeColors()
+
+// Set initial GIF from theme
+catGif.src = gifStages[0]
+
+// Initialize enhanced hearts animation
+initHeartsAnimation()
 
 // Autoplay: audio starts muted (bypasses browser policy), unmute immediately
 music.muted = true
@@ -142,4 +146,11 @@ function runAway() {
     noBtn.style.left = `${randomX}px`
     noBtn.style.top = `${randomY}px`
     noBtn.style.zIndex = '50'
+}
+
+/**
+ * Change theme (go back to selection)
+ */
+function changeTheme() {
+    window.location.href = 'theme-select.html'
 }

@@ -1,6 +1,17 @@
 let musicPlaying = false
 
 window.addEventListener('load', () => {
+    // Apply theme
+    const theme = ThemeManager.getThemeData()
+    ThemeManager.applyThemeColors()
+    
+    // Set celebration GIF
+    const catGif = document.getElementById('cat-gif')
+    catGif.src = theme.celebrationGif
+
+    // Initialize enhanced hearts animation
+    initHeartsAnimation()
+
     launchConfetti()
 
     // Autoplay music (works since user clicked Yes to get here)
@@ -12,7 +23,15 @@ window.addEventListener('load', () => {
 })
 
 function launchConfetti() {
-    const colors = ['#ff69b4', '#ff1493', '#ff85a2', '#ffb3c1', '#ff0000', '#ff6347', '#fff', '#ffdf00']
+    const theme = ThemeManager.getThemeData()
+    const colors = [
+        theme.colors.primary,
+        theme.colors.secondary,
+        theme.colors.accent,
+        theme.colors.gradient1,
+        theme.colors.gradient2,
+        '#fff'
+    ]
     const duration = 6000
     const end = Date.now() + duration
 
@@ -60,4 +79,11 @@ function toggleMusic() {
         musicPlaying = true
         document.getElementById('music-toggle').textContent = '🔊'
     }
+}
+
+/**
+ * Change theme (go back to selection)
+ */
+function changeTheme() {
+    window.location.href = 'theme-select.html'
 }

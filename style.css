@@ -1,3 +1,14 @@
+:root {
+    /* Default theme colors (will be overridden by theme selection) */
+    --theme-primary: #FF6B9D;
+    --theme-secondary: #FFA07A;
+    --theme-accent: #FFD700;
+    --theme-background: #FFE4E8;
+    --theme-gradient1: #ffb3c1;
+    --theme-gradient2: #ff8fa3;
+    --theme-gradient3: #fff0f3;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -5,7 +16,7 @@
 }
 
 body {
-    background-color: #FFE4E8;
+    background-color: var(--theme-background);
     font-family: 'Nunito', sans-serif;
     min-height: 100vh;
     display: flex;
@@ -13,12 +24,12 @@ body {
     align-items: center;
     overflow: hidden;
     background-image:
-        radial-gradient(circle at 15% 85%, #ffb3c1 0%, transparent 40%),
-        radial-gradient(circle at 85% 15%, #ff8fa3 0%, transparent 40%),
-        radial-gradient(circle at 50% 50%, #fff0f3 0%, transparent 60%);
+        radial-gradient(circle at 15% 85%, var(--theme-gradient1) 0%, transparent 40%),
+        radial-gradient(circle at 85% 15%, var(--theme-gradient2) 0%, transparent 40%),
+        radial-gradient(circle at 50% 50%, var(--theme-gradient3) 0%, transparent 60%);
 }
 
-/* Floating hearts background */
+/* Enhanced floating hearts background */
 .hearts-bg {
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
@@ -27,27 +38,29 @@ body {
     overflow: hidden;
 }
 
-.hearts-bg::before,
-.hearts-bg::after {
-    content: '💕 💗 💖 💝 💓';
+.falling-heart {
     position: absolute;
-    font-size: 1.5rem;
-    opacity: 0.15;
-    animation: floatHearts 12s linear infinite;
-    white-space: nowrap;
     top: 100%;
-    left: 10%;
+    pointer-events: none;
+    user-select: none;
+    will-change: transform, opacity;
 }
 
-.hearts-bg::after {
-    animation-delay: 6s;
-    left: 60%;
-    content: '💗 💕 💓 💖 💝';
-}
-
-@keyframes floatHearts {
-    from { transform: translateY(0); opacity: 0.15; }
-    to { transform: translateY(-110vh); opacity: 0; }
+@keyframes fallAndSway {
+    0% {
+        transform: translateY(0) translateX(0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.15;
+    }
+    90% {
+        opacity: 0.15;
+    }
+    100% {
+        transform: translateY(-110vh) translateX(var(--drift, 0)) rotate(var(--rotation, 0deg));
+        opacity: 0;
+    }
 }
 
 .container {
@@ -59,7 +72,7 @@ body {
 
 h1 {
     font-size: 2.4rem;
-    color: #d63384;
+    color: var(--theme-primary);
     font-weight: 900;
     margin-bottom: 20px;
     text-shadow: 2px 2px 0px rgba(214, 51, 132, 0.2);
@@ -173,6 +186,28 @@ h1 {
 }
 
 #music-toggle:hover {
+    transform: scale(1.1);
+}
+
+/* Theme toggle button */
+#theme-toggle {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background: rgba(255, 255, 255, 0.85);
+    border: none;
+    border-radius: 50%;
+    width: 52px;
+    height: 52px;
+    font-size: 1.4rem;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    transition: transform 0.2s;
+    z-index: 100;
+}
+
+#theme-toggle:hover {
     transform: scale(1.1);
 }
 
